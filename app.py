@@ -82,7 +82,7 @@ def main() -> None:
     )
 
     response_time: float = time.time() - start_time
-    print(f"Copy Completed in {response_time:.2f} seconds.")
+    print(f"Process completed in {response_time:.2f} seconds.")
 
 
 if __name__ == "__main__":
