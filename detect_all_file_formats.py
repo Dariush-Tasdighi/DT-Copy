@@ -39,13 +39,15 @@ def main() -> None:
         )
     )
 
-    print("=" * 50)
+    separator_length: int = 50
+
+    print("=" * separator_length)
     print(f"File Count: {file_count:,.0f}")
-    print("-" * 50)
+    print("-" * separator_length)
     print(f"Extension Count: {len(file_extensions):,.0f}")
-    print("-" * 50)
+    print("-" * separator_length)
     print(f"Process completed in {response_time:.2f} seconds.")
-    print("-" * 50)
+    print("-" * separator_length)
 
     for index, file_extension in enumerate(file_extensions):
         new_index = f"{(index + 1):,.0f}"
@@ -58,7 +60,8 @@ def main() -> None:
 
         print(f"[{new_index}]: {new_file_extension} - {file_extension_count}")
 
-    print("=" * 50)
+    print("=" * separator_length)
+    print()
 
 
 if __name__ == "__main__":

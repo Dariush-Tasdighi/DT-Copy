@@ -1,12 +1,11 @@
 import os
 import time
 from shutil import copytree
+from datetime import datetime
 from shutil import ignore_patterns
 
-INDEX: str = "1"
 SOURCE_PATH: str = "D:\\Source_Codes"
-# DESTINATION_PATH: str = f"E:\\SOURCE_CODES_{INDEX}"
-DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT_{INDEX}"
+DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT"
 
 IGNORE = ignore_patterns(
     # Some Files
@@ -46,6 +45,7 @@ IGNORE = ignore_patterns(
     ".vs".lower(),
     ".venv".lower(),
     ".models".lower(),
+    ".pytest_cache".lower(),
     # Some Folders
     "bin".lower(),
     "obj".lower(),
@@ -69,19 +69,22 @@ def main() -> None:
 
     os.system(command="cls")
 
-    if not os.path.exists(path=DESTINATION_PATH):
-        os.makedirs(name=DESTINATION_PATH)
+    current_time = datetime.now()
+    current_time_str = current_time.strftime(format="%Y-%m-%d")
+    destination_path: str = f"{DESTINATION_PATH}_{current_time_str}"
+
+    if not os.path.exists(path=destination_path):
+        os.makedirs(name=destination_path)
 
     start_time: float = time.time()
-
     copytree(
         ignore=IGNORE,
         src=SOURCE_PATH,
         dirs_exist_ok=True,
-        dst=DESTINATION_PATH,
+        dst=destination_path,
     )
-
     response_time: float = time.time() - start_time
+
     print(f"Process completed in {response_time:.2f} seconds.")
 
 

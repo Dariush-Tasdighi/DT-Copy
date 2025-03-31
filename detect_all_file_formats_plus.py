@@ -42,15 +42,21 @@ def main() -> None:
         )
     )
 
-    print("=" * 50)
+    separator_length: int = 67
+
+    print("=" * separator_length)
     print(f"File Count: {file_count:,.0f}")
-    print("-" * 50)
+    print("-" * separator_length)
     print(f"Extension Count: {len(file_extensions):,.0f}")
-    print("-" * 50)
+    print("-" * separator_length)
     print(f"Process completed in {response_time:.2f} seconds.")
-    print("-" * 50)
+    print("-" * separator_length)
+
+    sum: int = 0
 
     for index, file_extension in enumerate(file_extensions):
+        sum += file_extensions[file_extension][1]
+
         new_index = f"{(index + 1):,.0f}"
         new_index = new_index.rjust(5)
 
@@ -66,7 +72,23 @@ def main() -> None:
             f"[{new_index}]: {new_file_extension} - {file_extension_count} - {total_file_length}"
         )
 
-    print("=" * 50)
+    if sum > 1024 * 1024 * 1024:
+        print("-" * separator_length)
+        print(f"Total File Size: {sum / (1024 * 1024 * 1024):,.0f} GB")
+
+    if sum > 1024 * 1024:
+        print("-" * separator_length)
+        print(f"Total File Size: {sum / (1024 * 1024):,.0f} MB")
+
+    if sum > 1024:
+        print("-" * separator_length)
+        print(f"Total File Size: {sum / 1024:,.0f} KB")
+
+    print("-" * separator_length)
+    print(f"Total File Size: {sum:,.0f} B")
+
+    print("=" * separator_length)
+    print()
 
 
 if __name__ == "__main__":

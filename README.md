@@ -1,6 +1,6 @@
 # DT Copy
 
-- Version 1.1
+- Version 1.2
 
 ### Program Information
 
