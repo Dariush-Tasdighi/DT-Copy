@@ -11,6 +11,7 @@ IGNORE = ignore_patterns(
     # Some Files
     "*.tmp".lower(),
     "*.log".lower(),
+    "*.egg-info".lower(),
     # Some Binary Files
     "*.db".lower(),
     "*.dat".lower(),
@@ -53,6 +54,7 @@ IGNORE = ignore_patterns(
     "dist".lower(),
     "temp".lower(),
     "build".lower(),
+    "wheels".lower(),
     "install".lower(),
     "packages".lower(),
     "__pycache__".lower(),
@@ -64,7 +66,7 @@ IGNORE = ignore_patterns(
 
 def main() -> None:
     """
-    Main Function
+    Main function.
     """
 
     os.system(command="cls")
