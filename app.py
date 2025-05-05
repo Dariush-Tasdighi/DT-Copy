@@ -9,8 +9,10 @@ DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT"
 
 IGNORE = ignore_patterns(
     # Some Files
-    "*.tmp".lower(),
     "*.log".lower(),
+    "*.pkl".lower(),
+    "*.tmp".lower(),
+    "*.weights".lower(),
     "*.egg-info".lower(),
     # Some Binary Files
     "*.db".lower(),
@@ -77,6 +79,9 @@ def main() -> None:
 
     if not os.path.exists(path=destination_path):
         os.makedirs(name=destination_path)
+
+    print("Please wait...")
+    print(f"Copying files from {SOURCE_PATH} to {destination_path}...")
 
     start_time: float = time.time()
     copytree(
