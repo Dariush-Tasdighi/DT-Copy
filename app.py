@@ -4,6 +4,7 @@ from shutil import copytree
 from datetime import datetime
 from shutil import ignore_patterns
 
+VERSION: str = "1.5.0"
 SOURCE_PATH: str = "D:\\Source_Codes"
 DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT"
 
@@ -28,7 +29,7 @@ IGNORE = ignore_patterns(
     "*.zip".lower(),
     # Some Image Files
     "*.bmp".lower(),
-    # "*.png".lower(),
+    # "*.png".lower(),  # Check this later
     "*.jpg".lower(),
     "*.jpeg".lower(),
     "*.tiff".lower(),
@@ -43,7 +44,7 @@ IGNORE = ignore_patterns(
     # Some Audio Files
     "*.wav".lower(),
     "*.ogg".lower(),
-    "*.mp3".lower(),
+    # "*.mp3".lower(),  # Check this later
     # Some Special Folders
     ".vs".lower(),
     ".venv".lower(),
@@ -61,20 +62,18 @@ IGNORE = ignore_patterns(
     "packages".lower(),
     "__pycache__".lower(),
     # GIT Files and Folders
-    # "logs".lower(),
-    # ".git".lower(),
+    # "logs".lower(),  # Check this later
+    # ".git".lower(),  # Check this later
 )
 
 
 def main() -> None:
-    """
-    Main function.
-    """
+    """The main of program"""
 
-    os.system(command="cls")
+    os.system(command="cls" if os.name == "nt" else "clear")
 
     current_time = datetime.now()
-    current_time_str = current_time.strftime(format="%Y-%m-%d")
+    current_time_str = current_time.strftime(format="%Y_%m_%d_%H_%M_%S")
     destination_path: str = f"{DESTINATION_PATH}_{current_time_str}"
 
     if not os.path.exists(path=destination_path):
@@ -84,16 +83,27 @@ def main() -> None:
     print(f"Copying files from {SOURCE_PATH} to {destination_path}...")
 
     start_time: float = time.time()
+
     copytree(
         ignore=IGNORE,
         src=SOURCE_PATH,
         dirs_exist_ok=True,
         dst=destination_path,
     )
+
     response_time: float = time.time() - start_time
 
-    print(f"Process completed in {response_time:.2f} seconds.")
+    print(f"Copy process completed in {response_time:.2f} seconds.")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+
+    except KeyboardInterrupt:
+        pass
+
+    except Exception as error:
+        print(f"\n[-] {error}!")
+
+    print()

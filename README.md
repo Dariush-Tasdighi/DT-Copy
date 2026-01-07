@@ -1,8 +1,8 @@
 # DT Copy
 
-- Version 1.4
+- Version 1.5
 
-### Program Information
+## Program Information
 
 - This program is Open Source
 - This program is absolutely Free
@@ -10,9 +10,7 @@
 - This program does not need any external packages
 - This program is Cross Platform (Windows / Linux / MacOS)!
 
----
-
-### In this repository we have three file types
+## In this repository we have three file types
 
 ```shell
 python .\app.py
@@ -26,25 +24,23 @@ python .\app.py
  python .\detect_all_file_formats_plus.py
 ```
 
----
+## References
 
-### References
+### 'walk()' Function
 
-##### 'walk()' Function
+- <https://docs.python.org/3/library/os.html>
+- <https://www.geeksforgeeks.org/os-walk-python>
+- <https://docs.python.org/3/library/pathlib.html>
+- <https://www.w3schools.com/python/ref_os_walk.asp>
+- <https://www.tutorialspoint.com/python/os_walk.htm>
 
-- https://docs.python.org/3/library/os.html
-- https://www.geeksforgeeks.org/os-walk-python
-- https://docs.python.org/3/library/pathlib.html
-- https://www.w3schools.com/python/ref_os_walk.asp
-- https://www.tutorialspoint.com/python/os_walk.htm
+### 'copytree()' Function
 
-##### 'copytree()' Function
-
-- https://docs.python.org/3/library/shutil.html
-- https://documentation.help/Python-3.6.8/shutil.html
-- https://note.nkmk.me/en/python-shutil-copy-copytree
-- https://pynative.com/python-copy-files-and-directories
-- https://www.geeksforgeeks.org/python-shutil-copytree-method
-- https://www.geeksforgeeks.org/copy-all-files-from-one-directory-to-another-using-python
+- <https://docs.python.org/3/library/shutil.html>
+- <https://documentation.help/Python-3.6.8/shutil.html>
+- <https://note.nkmk.me/en/python-shutil-copy-copytree>
+- <https://pynative.com/python-copy-files-and-directories>
+- <https://www.geeksforgeeks.org/python-shutil-copytree-method>
+- <https://www.geeksforgeeks.org/copy-all-files-from-one-directory-to-another-using-python>
 
 ---
