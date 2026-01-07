@@ -4,11 +4,12 @@ from shutil import copytree
 from datetime import datetime
 from shutil import ignore_patterns
 
-VERSION: str = "1.5.0"
+VERSION: str = "1.5.1"
+
 SOURCE_PATH: str = "D:\\Source_Codes"
 DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT"
 
-IGNORE = ignore_patterns(
+IGNORE_PATTERNS = ignore_patterns(
     # Some Files
     "*.log".lower(),
     "*.pkl".lower(),
@@ -72,23 +73,23 @@ def main() -> None:
 
     os.system(command="cls" if os.name == "nt" else "clear")
 
-    current_time = datetime.now()
-    current_time_str = current_time.strftime(format="%Y_%m_%d_%H_%M_%S")
-    destination_path: str = f"{DESTINATION_PATH}_{current_time_str}"
+    current_date_time = datetime.now()
+    current_date_time_str = current_date_time.strftime(format="%Y_%m_%d_%H_%M_%S")
+    destination_path: str = f"{DESTINATION_PATH}_{current_date_time_str}"
 
     if not os.path.exists(path=destination_path):
         os.makedirs(name=destination_path)
 
     print("Please wait...")
-    print(f"Copying files from {SOURCE_PATH} to {destination_path}...")
+    print(f"Copying files from [{SOURCE_PATH}] to [{destination_path}]...")
 
     start_time: float = time.time()
 
     copytree(
-        ignore=IGNORE,
         src=SOURCE_PATH,
         dirs_exist_ok=True,
         dst=destination_path,
+        ignore=IGNORE_PATTERNS,
     )
 
     response_time: float = time.time() - start_time
