@@ -1,89 +1,165 @@
 import os
 import time
+
+from dt_utility import (
+    clear_screen,
+    format_seconds,
+    display_divider,
+    get_formated_now,
+    display_main_divider,
+    display_error_message,
+    display_title_message,
+)
+
+from typing import Final
 from shutil import copytree
-from datetime import datetime
 from shutil import ignore_patterns
 
-VERSION: str = "1.5.1"
+VERSION: Final[str] = "1.6.0"
 
-SOURCE_PATH: str = "D:\\Source_Codes"
-DESTINATION_PATH: str = f"E:\\SOURCE_CODES_WITH_GIT"
+SOURCE_PATH: Final[str] = "D:/Source_Codes"
+DESTINATION_PATH: Final[str] = f"E:/SOURCE_CODES_WITH_GIT"
 
-IGNORE_PATTERNS = ignore_patterns(
+IGNORE_PATTERNS: Final = ignore_patterns(
+    # ********************
+    # Some Files (Maybe Important!)
+    # ********************
+    # "*.pdf".strip().lower(),
+    # "*.doc".strip().lower(),
+    # "*.docx".strip().lower(),
+    # ********************
     # Some Files
-    "*.log".lower(),
-    "*.pkl".lower(),
-    "*.tmp".lower(),
-    "*.weights".lower(),
-    "*.egg-info".lower(),
+    # ********************
+    "*.log".strip().lower(),
+    "*.pkl".strip().lower(),
+    "*.tmp".strip().lower(),
+    "*.temp".strip().lower(),
+    "*.weights".strip().lower(),
+    "*.egg-info".strip().lower(),
+    # ********************
     # Some Binary Files
-    "*.db".lower(),
-    "*.dat".lower(),
-    "*.dll".lower(),
-    "*.exe".lower(),
-    "*.msi".lower(),
-    "*.sqlite3".lower(),
+    # ********************
+    "*.db".strip().lower(),
+    "*.dat".strip().lower(),
+    "*.dll".strip().lower(),
+    "*.exe".strip().lower(),
+    "*.msi".strip().lower(),
+    "*.sqlite3".strip().lower(),
+    # ********************
     # Some Compressed Files
-    "*.7z".lower(),
-    "*.rar".lower(),
-    "*.tar".lower(),
-    "*.zip".lower(),
+    # ********************
+    "*.7z".strip().lower(),
+    "*.jar".strip().lower(),
+    "*.rar".strip().lower(),
+    "*.tar".strip().lower(),
+    "*.zip".strip().lower(),
+    # ********************
     # Some Image Files
-    "*.bmp".lower(),
-    # "*.png".lower(),  # Check this later
-    "*.jpg".lower(),
-    "*.jpeg".lower(),
-    "*.tiff".lower(),
+    # ********************
+    "*.bmp".strip().lower(),
+    "*.gif".strip().lower(),
+    "*.svg".strip().lower(),
+    # "*.png".strip().lower(),  # Check this later
+    "*.jpg".strip().lower(),  # Check this later
+    "*.jpeg".strip().lower(),  # Check this later
+    "*.tiff".strip().lower(),
+    # ********************
     # Some AI Files
-    "*.h5".lower(),
-    "*.onnx".lower(),
+    # ********************
+    "*.ie".strip().lower(),
+    "*.ot".strip().lower(),
+    "*.pt".strip().lower(),
+    "*.h5".strip().lower(),
+    "*.bak".strip().lower(),
+    "*.bin".strip().lower(),
+    "*.eot".strip().lower(),
+    "*.fst".strip().lower(),
+    "*.int".strip().lower(),
+    "*.map".strip().lower(),
+    "*.mdl".strip().lower(),
+    "*.pkl".strip().lower(),
+    "*.sym".strip().lower(),
+    "*.suo".strip().lower(),
+    "*.whl".strip().lower(),
+    "*.avif".strip().lower(),
+    "*.dubm".strip().lower(),
+    "*.nemo".strip().lower(),
+    "*.onnx".strip().lower(),
+    "*.pack".strip().lower(),
+    "*.scss".strip().lower(),
+    "*.task".strip().lower(),
+    "*.user".strip().lower(),
+    "*.webp".strip().lower(),
+    "*.carpa".strip().lower(),
+    "*.data*".strip().lower(),
+    "*.sample".strip().lower(),
+    "*.tflite".strip().lower(),
+    "*.incomplete".strip().lower(),
+    "*.safetensors".strip().lower(),
+    # ********************
     # Some Video Files
-    "*.avi".lower(),
-    "*.mp4".lower(),
-    "*.mkv".lower(),
-    "*.wmv".lower(),
+    # ********************
+    "*.avi".strip().lower(),
+    "*.mkv".strip().lower(),
+    "*.mp4".strip().lower(),
+    "*.wmv".strip().lower(),
+    # ********************
     # Some Audio Files
-    "*.wav".lower(),
-    "*.ogg".lower(),
-    # "*.mp3".lower(),  # Check this later
+    # ********************
+    "*.mp3".strip().lower(),  # Check this later
+    "*.ogg".strip().lower(),
+    "*.wav".strip().lower(),  # Check this later
+    # ********************
     # Some Special Folders
-    ".vs".lower(),
-    ".venv".lower(),
-    ".models".lower(),
-    ".pytest_cache".lower(),
+    # ********************
+    ".vs".strip().lower(),
+    "venv".strip().lower(),
+    ".venv".strip().lower(),
+    ".models".strip().lower(),
+    ".venv.3.9".strip().lower(),
+    ".venv.3.10".strip().lower(),
+    ".venv.3.11".strip().lower(),
+    ".venv.3.12".strip().lower(),
+    ".venv.3.13".strip().lower(),
+    ".venv.3.14".strip().lower(),
+    ".venv.3.15".strip().lower(),
+    ".venv.3.16".strip().lower(),
+    ".pytest_cache".strip().lower(),
+    # ********************
     # Some Folders
-    "bin".lower(),
-    "obj".lower(),
-    "tmp".lower(),
-    "dist".lower(),
-    "temp".lower(),
-    "build".lower(),
-    "wheels".lower(),
-    "install".lower(),
-    "packages".lower(),
-    "__pycache__".lower(),
+    # ********************
+    "bin".strip().lower(),
+    "obj".strip().lower(),
+    "tmp".strip().lower(),
+    "dist".strip().lower(),
+    "temp".strip().lower(),
+    "build".strip().lower(),
+    "wheels".strip().lower(),
+    "install".strip().lower(),
+    "packages".strip().lower(),
+    "__pycache__".strip().lower(),
     # GIT Files and Folders
-    # "logs".lower(),  # Check this later
-    # ".git".lower(),  # Check this later
+    # "logs".strip().lower(),  # Check this later
+    # ".git".strip().lower(),  # Check this later
 )
 
 
 def main() -> None:
-    """The main of program"""
+    """Main function"""
 
-    os.system(command="cls" if os.name == "nt" else "clear")
+    clear_screen()
+    display_main_divider()
+    message: str = f"Dariush Tasdighi - Copy Files - Version {VERSION}"
+    display_title_message(message=message)
 
-    current_date_time = datetime.now()
-    current_date_time_str = current_date_time.strftime(format="%Y_%m_%d_%H_%M_%S")
-    destination_path: str = f"{DESTINATION_PATH}_{current_date_time_str}"
+    destination_path: str = f"{DESTINATION_PATH}_{get_formated_now()}"
+    os.makedirs(name=destination_path, exist_ok=True)
 
-    if not os.path.exists(path=destination_path):
-        os.makedirs(name=destination_path)
+    display_divider()
+    message: str = f"Copying files from [{SOURCE_PATH}] to [{destination_path}]..."
+    print(message, end=" ", flush=True)
 
-    print("Please wait...")
-    print(f"Copying files from [{SOURCE_PATH}] to [{destination_path}]...")
-
-    start_time: float = time.time()
+    start_time: float = time.perf_counter()
 
     copytree(
         src=SOURCE_PATH,
@@ -92,9 +168,13 @@ def main() -> None:
         ignore=IGNORE_PATTERNS,
     )
 
-    response_time: float = time.time() - start_time
+    end_time: float = time.perf_counter()
+    elapsed_time: float = end_time - start_time
+    formatted_elapsed_time: str = format_seconds(seconds=elapsed_time)
 
-    print(f"Copy process completed in {response_time:.2f} seconds.")
+    print()
+    display_divider()
+    print(f"Elapsed Time: {formatted_elapsed_time}")
 
 
 if __name__ == "__main__":
@@ -102,9 +182,12 @@ if __name__ == "__main__":
         main()
 
     except KeyboardInterrupt:
-        pass
+        print()
 
-    except Exception as error:
-        print(f"\n[-] {error}!")
+    except Exception as exception:
+        display_divider()
+        display_error_message(message=str(exception))
 
-    print()
+    finally:
+        display_main_divider()
+        print()
